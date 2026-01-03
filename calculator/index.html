@@ -103,6 +103,36 @@
       color:var(--muted);
       text-align:center;
     }
+
+    /* --- Info panel (below keys, above footer) --- */
+    .info{
+      margin: 0 14px 12px;
+      padding: 12px 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      background: rgba(0,0,0,.10);
+    }
+    .infoTitle{
+      margin: 0 0 6px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .01em;
+      color: var(--text);
+    }
+    .infoText{
+      margin: 0 0 10px;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+    .infoList{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    .infoList b{ color: var(--text); font-weight: 750; }    
   </style>
 </head>
 <body>
@@ -142,21 +172,23 @@
         <button data-k=".">.</button>
         <button class="accent" data-k="=">=</button>
       </div>
-
+      
+      <!-- Description (SEO + UX) -->
+      <section class="info" aria-label="About this calculator">
+        <h1 class="infoTitle">Online Calculator</h1>
+        <p class="infoText">
+          A fast, free web calculator for everyday arithmetic. Supports keyboard input, percentage,
+          decimals, and continuous calculations. Works smoothly on desktop and mobile.
+        </p>
+        <ul class="infoList">
+          <li><b>Keyboard:</b> type numbers and operators, press <b>Enter</b> for equals</li>
+          <li><b>Clear:</b> <b>Esc</b> clears all, <b>Backspace</b> deletes one digit</li>
+        </ul>
+      </section>
+      
       <footer>
         Example: <code>12.5*3-4</code> · Safe expression parser (no eval)
       </footer>
-
-
-      <section style="max-width:680px;margin:12px auto;color:#9ca3af;font-size:14px;">
-        <h1 style="font-size:18px;color:#e5e7eb;">Online Calculator</h1>
-        <p>
-          This free online calculator helps you perform basic arithmetic operations quickly.
-          It supports keyboard input, percentage calculations, decimals, and continuous operations.
-          Works smoothly on desktop and mobile devices.
-        </p>
-      </section>
-
       
     </div>
   </div>
