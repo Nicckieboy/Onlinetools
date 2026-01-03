@@ -1,12 +1,279 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>OnlineTools</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Online Tools — Fast, Free, Simple</title>
+  <meta name="description" content="A growing collection of fast, free online tools. No sign-up. Mobile-friendly. Start with our clean Online Calculator." />
+
+  <!-- Canonical (optional but nice) -->
+  <link rel="canonical" href="https://onlinetools-dyx.pages.dev/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Online Tools — Fast, Free, Simple" />
+  <meta property="og:description" content="Fast, free online tools. Mobile-friendly. No sign-up." />
+  <meta property="og:url" content="https://onlinetools-dyx.pages.dev/" />
+  <!-- If you later add an image: /og.png -->
+  <!-- <meta property="og:image" content="https://onlinetools-dyx.pages.dev/og.png" /> -->
+  <meta name="twitter:card" content="summary" />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#101a2c;
+      --panel2:#0f172a;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#3b82f6;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 20px 70px rgba(0,0,0,.35);
+    }
+    *{ box-sizing:border-box; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+    body{
+      margin:0;
+      min-height:100svh;
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 20% 10%, #162445, var(--bg)),
+        radial-gradient(700px 500px at 90% 30%, #111b2e, transparent);
+    }
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:min(980px, 92vw); margin: 28px auto 44px; }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 10px 2px 18px;
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center;
+      font-weight:800; letter-spacing:.02em;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: linear-gradient(180deg, rgba(59,130,246,1), rgba(59,130,246,.6));
+      box-shadow: 0 0 18px rgba(59,130,246,.55);
+    }
+    .nav{
+      display:flex; gap:14px; align-items:center; color:var(--muted); font-size:14px;
+    }
+    .nav a:hover{ color: var(--text); }
+
+    .hero{
+      border:1px solid var(--border);
+      border-radius:20px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-60px -80px auto auto;
+      width:220px; height:220px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(59,130,246,.45), transparent 60%);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+    .hero h1{
+      margin: 2px 0 10px;
+      font-size: clamp(28px, 3.5vw, 42px);
+      line-height:1.08;
+      letter-spacing:-.02em;
+    }
+    .hero p{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 70ch;
+    }
+    .ctaRow{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-top: 14px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover{ background: rgba(255,255,255,.06); }
+    .btnPrimary{
+      border-color: rgba(59,130,246,.55);
+      background: linear-gradient(180deg, rgba(59,130,246,.95), rgba(59,130,246,.70));
+    }
+    .btnPrimary:hover{ filter: brightness(1.05); }
+
+    .sectionTitle{
+      margin: 20px 2px 10px;
+      display:flex; justify-content:space-between; align-items:end;
+      gap:14px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.01em;
+    }
+    .sectionTitle .sub{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+    .card{
+      grid-column: span 12;
+      border:1px solid var(--border);
+      border-radius:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      padding: 14px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.22);
+      display:flex; gap: 12px;
+      align-items: flex-start;
+      transition: transform .06s ease, filter .15s ease;
+    }
+    .card:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+    .icon{
+      width:44px; height:44px; border-radius:14px;
+      display:grid; place-items:center;
+      background: rgba(59,130,246,.14);
+      border:1px solid rgba(59,130,246,.25);
+      flex: 0 0 auto;
+      font-size: 20px;
+    }
+    .card h3{ margin: 1px 0 6px; font-size: 16px; }
+    .card p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .metaRow{ margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; }
+    .tag{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.10);
+      color: var(--muted);
+    }
+
+    .footer{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align:center;
+      padding: 16px 6px 0;
+    }
+    .footer a{ color: #93c5fd; }
+
+    @media (min-width: 720px){
+      .hero{ padding: 30px 26px; }
+      .card{ grid-column: span 6; }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>OnlineTools</h1>
-  <p>Cloudflare Pages で公開中</p>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand" aria-label="Online Tools">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Online Tools</span>
+      </div>
+      <div class="nav" aria-label="Navigation">
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
+      </div>
+    </div>
+
+    <section class="hero" id="top">
+      <h1>Fast, free online tools.</h1>
+      <p>
+        A lightweight collection of web tools designed for speed and clarity.
+        No sign-up. Mobile-friendly. More tools coming soon.
+      </p>
+      <div class="ctaRow">
+        <a class="btn btnPrimary" href="/calculator/" aria-label="Open Online Calculator">Open Calculator →</a>
+        <a class="btn" href="#tools" aria-label="Browse tools">Browse tools</a>
+      </div>
+    </section>
+
+    <div class="sectionTitle" id="tools">
+      <h2>Tools</h2>
+      <p class="sub">Simple utilities you can use instantly</p>
+    </div>
+
+    <section class="grid" aria-label="Tool list">
+      <!-- Tool Card: Calculator -->
+      <a class="card" href="/calculator/" aria-label="Online Calculator">
+        <div class="icon" aria-hidden="true">🧮</div>
+        <div>
+          <h3>Online Calculator</h3>
+          <p>
+            Clean calculator for everyday use. Supports keyboard input, percentage, decimals,
+            and continuous calculations.
+          </p>
+          <div class="metaRow" aria-label="Calculator tags">
+            <span class="tag">Keyboard</span>
+            <span class="tag">Mobile-friendly</span>
+            <span class="tag">No tracking by default</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Add more tool cards here later -->
+      <!--
+      <a class="card" href="/unit-converter/">
+        <div class="icon">📏</div>
+        <div>
+          <h3>Unit Converter</h3>
+          <p>Convert length, weight, temperature, and more.</p>
+          <div class="metaRow">
+            <span class="tag">Fast</span><span class="tag">Accurate</span>
+          </div>
+        </div>
+      </a>
+      -->
+    </section>
+
+    <div class="sectionTitle" id="about" style="margin-top:18px;">
+      <h2>About</h2>
+      <p class="sub">What this site is</p>
+    </div>
+
+    <section class="hero" style="padding:16px 18px;">
+      <p style="margin:0; max-width: 80ch;">
+        This site hosts small, focused tools that load fast and work well on phones.
+        Everything is built as static pages for reliability. If you have a request for a new tool,
+        you can add an issue in the repository.
+      </p>
+
+      <div class="ctaRow" style="margin-top:12px;">
+        <!-- Replace with your repo URL if you want -->
+        <a class="btn" href="#" onclick="alert('Add your GitHub repo link here (optional).'); return false;">
+          GitHub Repository (optional)
+        </a>
+        <a class="btn" href="#top">Back to top ↑</a>
+      </div>
+    </section>
+
+    <div class="footer">
+      © <span id="y"></span> Online Tools · Built with static pages on Cloudflare Pages.
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
-
