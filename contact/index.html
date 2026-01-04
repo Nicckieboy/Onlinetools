@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — Online Tools</title>
+  <meta name="description" content="Contact Online Tools for feedback, bug reports, and tool requests." />
+  <link rel="canonical" href="https://onlinetools-dyx.pages.dev/contact/" />
+
+  <style>
+    :root{
+      --bg:#0b1220; --text:#e5e7eb; --muted:#9ca3af; --border:rgba(255,255,255,.10);
+      --shadow: 0 20px 70px rgba(0,0,0,.35);
+    }
+    *{ box-sizing:border-box; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+    body{
+      margin:0; min-height:100svh; color:var(--text);
+      background: radial-gradient(900px 600px at 20% 10%, #162445, var(--bg));
+    }
+    a{ color:#93c5fd; text-decoration:none; }
+    .container{ width:min(900px, 92vw); margin: 26px auto 44px; }
+    .topbar{ display:flex; justify-content:space-between; align-items:center; padding: 10px 2px 18px; }
+    .brand{ display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.02em; color:var(--text); }
+    .dot{ width:10px; height:10px; border-radius:999px; background: linear-gradient(180deg, rgba(59,130,246,1), rgba(59,130,246,.6)); box-shadow: 0 0 18px rgba(59,130,246,.55); }
+    .nav{ display:flex; gap:14px; color:var(--muted); font-size:14px; }
+    .nav a{ color:var(--muted); }
+    .nav a:hover{ color:var(--text); }
+
+    .card{
+      border:1px solid var(--border); border-radius:20px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    h1{ margin: 4px 0 10px; font-size: 26px; letter-spacing:-.02em; }
+    p{ margin: 0 0 12px; color:var(--muted); line-height:1.65; }
+    .btnrow{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 12px; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 12px; border-radius: 14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--text); font-weight:700; font-size: 14px;
+    }
+    .btn:hover{ background: rgba(255,255,255,.06); }
+    .box{
+      margin-top:12px; padding:12px;
+      border:1px solid var(--border); border-radius:16px;
+      background: rgba(0,0,0,.10);
+      color: var(--muted);
+      font-size: 13px; line-height:1.65;
+    }
+    .footer{ margin-top: 16px; color:var(--muted); font-size: 12px; text-align:center; padding-top: 14px; }
+    code{ color:#e5e7eb; background: rgba(0,0,0,.18); padding: 2px 6px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="brand" href="/" aria-label="Online Tools home">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Online Tools</span>
+      </a>
+      <div class="nav">
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/calculator/">Calculator</a>
+      </div>
+    </div>
+
+    <main class="card">
+      <h1>Contact</h1>
+      <p>
+        Feedback, bug reports, and tool requests are welcome.
+      </p>
+
+      <div class="btnrow">
+        <!-- TODO: Replace the link below with your actual GitHub repo issues URL -->
+        <a class="btn" href="https://github.com/YOUR_GITHUB_USERNAME/onlinetools/issues" target="_blank" rel="noreferrer">
+          Open a GitHub Issue →
+        </a>
+        <a class="btn" href="/">Back to Home</a>
+      </div>
+
+      <div class="box">
+        If you don’t use GitHub, you can later replace this with an email address or a simple form.
+        For now, GitHub Issues is a reliable way to contact the site owner without exposing email publicly.
+      </div>
+
+      <div class="box">
+        Suggested issue title formats:
+        <ul>
+          <li><code>[Bug]</code> Calculator shows incorrect result when…</li>
+          <li><code>[Request]</code> Please add a unit converter</li>
+          <li><code>[Feedback]</code> UI improvement suggestion</li>
+        </ul>
+      </div>
+    </main>
+
+    <div class="footer">
+      © <span id="y"></span> Online Tools
+    </div>
+  </div>
+
+  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+</body>
+</html>
