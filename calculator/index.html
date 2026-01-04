@@ -89,6 +89,7 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
       user-select:none;
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     button:active { transform: translateY(1px); filter: brightness(1.08); }
     .op { background: var(--key2); }
@@ -132,7 +133,7 @@
       font-size: 12.5px;
       line-height: 1.55;
     }
-    .infoList b{ color: var(--text); font-weight: 750; }    
+    .infoList b{ color: var(--text); font-weight: 750; }
   </style>
 </head>
 <body>
@@ -402,9 +403,13 @@
     if (isOp(k)) return appendOperator(k);
     if (k === "." || /^\d$/.test(k)) return appendDigit(k);
   }
-
+  
   document.querySelectorAll("button[data-k]").forEach(btn => {
-    btn.addEventListener("click", () => handle(btn.dataset.k));
+    btn.addEventListener("pointerdown", (e) => {
+      // prevent ghost clicks on mobile and make it feel instant
+      e.preventDefault();
+      handle(btn.dataset.k);
+    });
   });
 
   window.addEventListener("keydown", e => {
