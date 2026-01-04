@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Privacy Policy — Online Tools</title>
+  <meta name="description" content="Privacy Policy for Online Tools: analytics, cookies, and how data is handled." />
+  <link rel="canonical" href="https://onlinetools-dyx.pages.dev/privacy/" />
+
+  <style>
+    :root{
+      --bg:#0b1220; --text:#e5e7eb; --muted:#9ca3af; --border:rgba(255,255,255,.10);
+      --shadow: 0 20px 70px rgba(0,0,0,.35);
+      --panel: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    }
+    *{ box-sizing:border-box; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+    body{
+      margin:0; min-height:100svh; color:var(--text);
+      background: radial-gradient(900px 600px at 20% 10%, #162445, var(--bg));
+    }
+    a{ color:#93c5fd; text-decoration:none; }
+    .container{ width:min(900px, 92vw); margin: 26px auto 44px; }
+    .topbar{ display:flex; justify-content:space-between; align-items:center; padding: 10px 2px 18px; }
+    .brand{ display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.02em; color:var(--text); }
+    .dot{ width:10px; height:10px; border-radius:999px; background: linear-gradient(180deg, rgba(59,130,246,1), rgba(59,130,246,.6)); box-shadow: 0 0 18px rgba(59,130,246,.55); }
+    .nav{ display:flex; gap:14px; color:var(--muted); font-size:14px; }
+    .nav a{ color:var(--muted); }
+    .nav a:hover{ color:var(--text); }
+
+    .card{ border:1px solid var(--border); border-radius:20px; background: var(--panel); box-shadow: var(--shadow); padding: 18px; }
+    h1{ margin: 4px 0 10px; font-size: 26px; letter-spacing:-.02em; }
+    h2{ margin: 18px 0 8px; font-size: 16px; }
+    p, li{ color:var(--muted); line-height:1.7; }
+    ul{ margin: 8px 0 0; padding-left: 18px; }
+    code{ color:#e5e7eb; background: rgba(0,0,0,.18); padding: 2px 6px; border-radius: 8px; }
+    .note{
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.10);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .footer{ margin-top: 16px; color:var(--muted); font-size: 12px; text-align:center; padding-top: 14px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="brand" href="/" aria-label="Online Tools home">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Online Tools</span>
+      </a>
+      <div class="nav">
+        <a href="/about/">About</a>
+        <a href="/calculator/">Calculator</a>
+        <a href="/contact/">Contact</a>
+      </div>
+    </div>
+
+    <main class="card">
+      <h1>Privacy Policy</h1>
+      <p>Last updated: <span id="d"></span></p>
+
+      <h2>Overview</h2>
+      <p>
+        This site provides simple online tools. We aim to collect as little data as possible while keeping the site reliable.
+      </p>
+
+      <h2>Analytics</h2>
+      <p>
+        We may use privacy-friendly analytics to understand basic usage (for example: page views, referrers, and country-level location).
+        This data helps improve performance and usability.
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        The site itself does not require you to create an account. Analytics or advertising services may use cookies or similar technologies
+        depending on your browser settings and the services enabled.
+      </p>
+
+      <h2>Advertising</h2>
+      <p>
+        We may display ads in the future. Advertising partners may collect data to provide and measure ads. If ads are enabled,
+        additional information about partners and options will be provided here.
+      </p>
+
+      <h2>Personal Information</h2>
+      <p>
+        We do not ask for sensitive personal information to use the tools. If you contact us, we will use your message only to respond.
+      </p>
+
+      <h2>Third-Party Services</h2>
+      <p>
+        This site may use third-party services (e.g., analytics or advertising). These services may process data under their own policies.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        If you have questions about this Privacy Policy, please contact us via the <a href="/contact/">Contact</a> page.
+      </p>
+
+      <div class="note">
+        Tip: If you later switch to a custom domain (recommended for production), update the <code>canonical</code> URL and
+        sitemap URLs to match the new domain.
+      </div>
+    </main>
+
+    <div class="footer">
+      © <span id="y"></span> Online Tools
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+    const dt = new Date();
+    document.getElementById("d").textContent = dt.toLocaleDateString("en-US", { year:"numeric", month:"long", day:"numeric" });
+  </script>
+</body>
+</html>
