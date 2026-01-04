@@ -201,6 +201,9 @@
   let expr = "";
   let current = "0";
   let lastWasEqual = false;
+  let repeatOp = null;     // '+', '-', '*', '/'
+  let repeatVal = null;    // number
+
 
   const isOp = c => ["+","-","*","/"].includes(c);
 
@@ -210,6 +213,8 @@
   }
 
   function clearAll() {
+    repeatOp = null;
+    repeatVal = null;
     expr = "";
     current = "0";
     lastWasEqual = false;
@@ -239,6 +244,10 @@
   }
 
   function appendOperator(op) {
+    
+    repeatOp = null;
+    repeatVal = null;
+    
     if (!expr) {
       expr = current + " " + op + " ";
       current = "0";
@@ -296,16 +305,64 @@
     }
     return stack.length === 1 ? stack[0] : NaN;
   }
+  function extractLastBinaryOp(fullExpr) {
+    // fullExpr example: "5 + 2 * 3"
+    const tokens = fullExpr.match(/-?\d+(?:\.\d+)?|[+\-*/]/g);
+    if (!tokens || tokens.length < 3) return null;
+
+    // find last pattern: <number> <op> <number> (at the end)
+    // tokens ends with number, find nearest operator before it
+    const lastNumStr = tokens[tokens.length - 1];
+    const lastNum = Number(lastNumStr);
+    if (!Number.isFinite(lastNum)) return null;
+
+    for (let i = tokens.length - 2; i >= 0; i--) {
+      const t = tokens[i];
+      if (["+","-","*","/"].includes(t)) {
+        return { op: t, val: lastNum };
+      }
+    }
+    return null;
+  }
+
+  function applyOp(a, op, b) {
+    if (!Number.isFinite(a) || !Number.isFinite(b)) return NaN;
+    if (op === "+") return a + b;
+    if (op === "-") return a - b;
+    if (op === "*") return a * b;
+    if (op === "/") return a / b;
+    return NaN;
+  }
 
   function equals() {
+    // If user presses "=" repeatedly, repeat last operation
+    if (lastWasEqual) {
+      const a = Number(current);
+      if (repeatOp && repeatVal !== null && Number.isFinite(a)) {
+        const r = applyOp(a, repeatOp, repeatVal);
+        expr = `${a} ${repeatOp} ${repeatVal} =`;
+        current = Number.isFinite(r)
+          ? String(Math.round((r + Number.EPSILON) * 1e12) / 1e12)
+          : "Error";
+        update();
+      }
+      return;
+    }
+
     if (!expr) return;
+
     const full = expr.trim() + " " + current;
     const result = evaluateExpression(full);
+
+    // store repeat operation (last operator + last number)
+    const last = extractLastBinaryOp(full);
+    repeatOp = last ? last.op : null;
+    repeatVal = last ? last.val : null;
+
     expr = full + " =";
     if (!Number.isFinite(result)) current = "Error";
-    else {
-      current = String(Math.round((result + Number.EPSILON) * 1e12) / 1e12);
-    }
+    else current = String(Math.round((result + Number.EPSILON) * 1e12) / 1e12);
+
     lastWasEqual = true;
     update();
   }
