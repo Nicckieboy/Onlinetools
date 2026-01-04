@@ -201,6 +201,8 @@
   let expr = "";
   let current = "0";
   let lastWasEqual = false;
+  let startNewNumber = false; // next digit starts a new number
+
   let repeatOp = null;     // '+', '-', '*', '/'
   let repeatVal = null;    // number
 
@@ -218,6 +220,7 @@
     expr = "";
     current = "0";
     lastWasEqual = false;
+    startNewNumber = false;
     update();
   }
 
@@ -234,9 +237,23 @@
   function appendDigit(d) {
     if (lastWasEqual) {
       expr = "";
-      current = "0";
       lastWasEqual = false;
+      // keep current as result until user starts typing; then overwrite
+      startNewNumber = true;
     }
+
+    if (current === "Error") {
+      clearAll();
+    }
+
+    // If we are starting a new number (after operator or after equals), overwrite
+    if (startNewNumber) {
+      current = (d === ".") ? "0." : d;
+      startNewNumber = false;
+      update();
+      return;
+    }
+
     if (d === "." && current.includes(".")) return;
     if (current === "0" && d !== ".") current = d;
     else current += d;
@@ -244,23 +261,33 @@
   }
 
   function appendOperator(op) {
-    
     repeatOp = null;
     repeatVal = null;
-    
+
+    // If user just pressed "=", continue from current result
+    if (lastWasEqual) lastWasEqual = false;
+
+    // exprが空の場合は current を先頭へ
     if (!expr) {
       expr = current + " " + op + " ";
-      current = "0";
+      startNewNumber = true;
       update();
       return;
     }
+
     const trimmed = expr.trimEnd();
+
+    // 末尾が演算子なら置換
     if (isOp(trimmed.slice(-1))) {
       expr = trimmed.slice(0, -1) + op + " ";
-    } else {
-      expr += current + " " + op + " ";
-      current = "0";
+      startNewNumber = true;
+      update();
+      return;
     }
+
+    // 通常：current を確定して演算子
+    expr += current + " " + op + " ";
+    startNewNumber = true;     // ← ここがポイント（表示は変えない）
     update();
   }
 
