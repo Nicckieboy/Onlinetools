@@ -220,6 +220,21 @@
 
     </div>
   </div>
+<footer class="footer">
+  <p>
+    © <span id="y"></span> Simple Tools Web ·
+    Built with static pages on Cloudflare Pages.
+  </p>
+  <p>
+    <a href="/about/">About</a> ·
+    <a href="/privacy/">Privacy</a> ·
+    <a href="/contact/">Contact</a>
+  </p>
+</footer>
+
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+</script>
 
 <script>
 (() => {
