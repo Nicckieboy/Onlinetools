@@ -8,6 +8,7 @@
 
   <!-- SEO -->
   <meta name="description" content="Free online calculator for everyday use. Supports keyboard input, percentage, decimals, and continuous calculations. No sign-up." />
+
   <style>
     :root {
       --bg:#0b1220;
@@ -17,36 +18,66 @@
       --accent:#3b82f6;
       --text:#e5e7eb;
       --muted:#9ca3af;
+      --line: rgba(255,255,255,.10);
+      --glass: rgba(255,255,255,.06);
     }
-    * {
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
     body {
       margin:0;
       min-height:100svh;
-      display:grid;
-      place-items:center;
       background: radial-gradient(1200px 600px at 30% 10%, #162445, var(--bg));
       color:var(--text);
     }
-    .wrap { width:min(420px, 92vw); }
+
+    /* --- Topbar (match your top page) --- */
+    .container { width:min(980px, 92vw); margin:0 auto; }
+    .topbar {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand {
+      display:flex; align-items:center; gap:10px;
+      color:var(--text); text-decoration:none; font-weight:800;
+      letter-spacing:.02em;
+    }
+    .dot {
+      width:10px; height:10px; border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(59,130,246,.18);
+    }
+    .nav { display:flex; gap:14px; flex-wrap:wrap; }
+    .nav a {
+      color: var(--muted);
+      text-decoration:none;
+      font-size:14px;
+      padding:6px 10px;
+      border:1px solid transparent;
+      border-radius:999px;
+    }
+    .nav a:hover { color:var(--text); border-color: var(--line); background: rgba(0,0,0,.10); }
+    .nav a[aria-current="page"] { color:var(--text); border-color: var(--line); background: rgba(0,0,0,.14); }
+
+    /* --- Main layout --- */
+    main { padding: 8px 0 28px; }
+    .wrap { width:min(420px, 92vw); margin: 0 auto; }
     .card {
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.1);
+      background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.03));
+      border:1px solid var(--line);
       border-radius:18px;
       overflow:hidden;
       box-shadow: 0 20px 60px rgba(0,0,0,.35);
     }
-    header {
+
+    /* --- Calculator header inside card --- */
+    .appHeader {
       padding:14px 16px;
       display:flex;
       justify-content:space-between;
       align-items:center;
       background: rgba(0,0,0,.12);
     }
-    header .title { font-weight:700; letter-spacing:.02em; }
-    header .hint { font-size:12px; color:var(--muted); }
+    .appHeader .title { font-weight:800; letter-spacing:.02em; }
+    .appHeader .hint { font-size:12px; color:var(--muted); }
 
     .display {
       padding:16px;
@@ -61,7 +92,7 @@
     .value {
       margin-top:6px;
       font-size:38px;
-      font-weight:700;
+      font-weight:800;
       text-align:right;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -80,7 +111,7 @@
       border-radius:14px;
       padding:14px 10px;
       font-size:18px;
-      font-weight:650;
+      font-weight:700;
       color:var(--text);
       background: var(--key);
       cursor:pointer;
@@ -92,375 +123,350 @@
     }
     button:active { transform: translateY(1px); filter: brightness(1.08); }
     .op { background: var(--key2); }
-    .accent {
-      background: linear-gradient(180deg, rgba(59,130,246,.95), rgba(59,130,246,.75));
-    }
+    .accent { background: linear-gradient(180deg, rgba(59,130,246,.95), rgba(59,130,246,.75)); }
     .wide { grid-column: span 2; }
 
-    footer {
-      padding:10px 16px 14px;
-      font-size:12px;
-      color:var(--muted);
-      text-align:center;
-    }
-
-    /* --- Info panel (below keys, above footer) --- */
+    /* --- Unified description block (SEO + UX) --- */
     .info{
-      margin: 0 14px 12px;
+      margin: 0 14px 14px;
       padding: 12px 12px;
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid var(--line);
       border-radius: 16px;
       background: rgba(0,0,0,.10);
     }
-    .infoTitle{
+    .info h1{
       margin: 0 0 6px;
-      font-size: 14px;
-      font-weight: 800;
+      font-size: 16px;
+      font-weight: 900;
       letter-spacing: .01em;
       color: var(--text);
     }
-    .infoText{
+    .info p, .info li{
       margin: 0 0 10px;
-      font-size: 12.5px;
-      line-height: 1.55;
+      font-size: 13px;
+      line-height: 1.65;
       color: var(--muted);
     }
-    .infoList{
-      margin: 0;
-      padding-left: 18px;
+    .info ul{ margin: 0; padding-left: 18px; }
+    .info b{ color: var(--text); font-weight: 800; }
+    .note{
+      margin-top: 8px;
+      font-size: 12px;
       color: var(--muted);
-      font-size: 12.5px;
-      line-height: 1.55;
     }
-    .infoList b{ color: var(--text); font-weight: 750; }
+
+    /* --- Site footer (global) --- */
+    .siteFooter{
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 18px 0 28px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .siteFooter a{ color: var(--muted); text-decoration:none; }
+    .siteFooter a:hover{ color: var(--text); text-decoration:underline; }
+    .siteFooter .links{ margin-top:8px; display:flex; gap:10px; flex-wrap:wrap; }
   </style>
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1631622502386187" crossorigin="anonymous"></script>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="card" role="application" aria-label="Web Calculator">
-      <header>
-        <div class="title">Web Calculator</div>
-        <div class="hint">Keyboard supported</div>
-      </header>
-      <div class="display" aria-live="polite">
-        <div class="expression" id="expr"></div>
-        <div class="value" id="value">0</div>
+  <!-- Topbar -->
+  <div class="container">
+    <div class="topbar">
+      <a class="brand" href="/" aria-label="Simple Tools Web home">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Simple Tools Web</span>
+      </a>
+      <div class="nav">
+        <a href="/calculator/" aria-current="page">Calculator</a>
+        <a href="/about/">About</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/contact/">Contact</a>
       </div>
-
-      <div class="keys">
-        <button class="op" data-k="C">C</button>
-        <button class="op" data-k="back">⌫</button>
-        <button class="op" data-k="%">%</button>
-        <button class="op" data-k="/">÷</button>
-
-        <button data-k="7">7</button>
-        <button data-k="8">8</button>
-        <button data-k="9">9</button>
-        <button class="op" data-k="*">×</button>
-
-        <button data-k="4">4</button>
-        <button data-k="5">5</button>
-        <button data-k="6">6</button>
-        <button class="op" data-k="-">−</button>
-
-        <button data-k="1">1</button>
-        <button data-k="2">2</button>
-        <button data-k="3">3</button>
-        <button class="op" data-k="+">+</button>
-
-        <button class="wide" data-k="0">0</button>
-        <button data-k=".">.</button>
-        <button class="accent" data-k="=">=</button>
-      </div>
-      
-      <!-- Description (SEO + UX) -->
-      <section class="info" aria-label="About this calculator">
-        <h1 class="infoTitle">Web Calculator</h1>
-        <p class="infoText">
-          A fast, free web calculator for everyday arithmetic. Supports keyboard input, percentage,
-          decimals, and continuous calculations. Works smoothly on desktop and mobile.
-        </p>
-        <ul class="infoList">
-          <li><b>Keyboard:</b> type numbers and operators, press <b>Enter</b> for equals</li>
-          <li><b>Clear:</b> <b>Esc</b> clears all, <b>Backspace</b> deletes one digit</li>
-        </ul>
-      </section>
-      
-      <footer>
-        <p>
-        Example: <code>12.5*3-4</code> · Safe expression parser (no eval)
-        </p>
-      </footer>
-      
-      <section class="description">
-        <h2>About this Web Calculator</h2>
-      
-        <p>
-          This web calculator is a simple and fast tool designed for everyday calculations.
-          It works directly in your browser without requiring any installation or registration.
-          The calculator supports basic arithmetic operations such as addition, subtraction,
-          multiplication, and division.
-        </p>
-      
-        <p>
-          The goal of this calculator is to provide a clean and distraction-free experience.
-          It is optimized for both desktop and mobile devices, allowing you to perform quick
-          calculations at home, at work, or on the go.
-        </p>
-      
-        <p>
-          All calculations are processed locally in your browser, and no data is sent to any server.
-          This ensures fast performance and protects your privacy.
-        </p>
-      </section>
-
     </div>
   </div>
-<footer class="footer">
-  <p>
-    © <span id="y"></span> Simple Tools Web ·
-    Built with static pages on Cloudflare Pages.
-  </p>
-  <p>
-    <a href="/about/">About</a> ·
-    <a href="/privacy/">Privacy</a> ·
-    <a href="/contact/">Contact</a>
-  </p>
-</footer>
 
-<script>
-  document.getElementById("y").textContent = new Date().getFullYear();
-</script>
+  <main>
+    <div class="wrap">
+      <div class="card" role="application" aria-label="Web Calculator">
+        <div class="appHeader">
+          <div class="title">Calculator</div>
+          <div class="hint">Keyboard supported</div>
+        </div>
 
-<script>
-(() => {
-  const exprEl = document.getElementById("expr");
-  const valueEl = document.getElementById("value");
+        <div class="display" aria-live="polite">
+          <div class="expression" id="expr"></div>
+          <div class="value" id="value">0</div>
+        </div>
 
-  let expr = "";
-  let current = "0";
-  let lastWasEqual = false;
-  let startNewNumber = false; // next digit starts a new number
+        <div class="keys">
+          <button class="op" data-k="C">C</button>
+          <button class="op" data-k="back">⌫</button>
+          <button class="op" data-k="%">%</button>
+          <button class="op" data-k="/">÷</button>
 
-  let repeatOp = null;     // '+', '-', '*', '/'
-  let repeatVal = null;    // number
+          <button data-k="7">7</button>
+          <button data-k="8">8</button>
+          <button data-k="9">9</button>
+          <button class="op" data-k="*">×</button>
 
+          <button data-k="4">4</button>
+          <button data-k="5">5</button>
+          <button data-k="6">6</button>
+          <button class="op" data-k="-">−</button>
 
-  const isOp = c => ["+","-","*","/"].includes(c);
+          <button data-k="1">1</button>
+          <button data-k="2">2</button>
+          <button data-k="3">3</button>
+          <button class="op" data-k="+">+</button>
 
-  function update() {
-    exprEl.textContent = expr;
-    valueEl.textContent = current;
-  }
+          <button class="wide" data-k="0">0</button>
+          <button data-k=".">.</button>
+          <button class="accent" data-k="=">=</button>
+        </div>
 
-  function clearAll() {
-    repeatOp = null;
-    repeatVal = null;
-    expr = "";
-    current = "0";
-    lastWasEqual = false;
-    startNewNumber = false;
-    update();
-  }
+        <!-- Description (single, structured, crawler-friendly) -->
+        <section class="info" aria-label="About this calculator">
+          <h1>Web Calculator</h1>
+          <p>
+            A fast, free web calculator for everyday arithmetic. Supports keyboard input, percentage,
+            decimals, and continuous calculations. Works smoothly on desktop and mobile.
+          </p>
+          <ul>
+            <li><b>Keyboard:</b> type numbers and operators, press <b>Enter</b> for equals</li>
+            <li><b>Clear:</b> <b>Esc</b> clears all, <b>Backspace</b> deletes one digit</li>
+            <li><b>Privacy:</b> calculations run locally in your browser (no server processing)</li>
+          </ul>
+          <div class="note">Example: <code>12.5*3-4</code> · Safe expression parser (no eval)</div>
+        </section>
+      </div>
+    </div>
+  </main>
 
-  function backspace() {
-    if (lastWasEqual) return clearAll();
-    if (current.length <= 1 || (current.length === 2 && current.startsWith("-"))) {
-      current = "0";
-    } else {
-      current = current.slice(0, -1);
+  <!-- Site footer -->
+  <div class="siteFooter">
+    <div class="container">
+      <div>© <span id="y"></span> Simple Tools Web · Built with static pages on Cloudflare Pages.</div>
+      <div class="links">
+        <a href="/about/">About</a>
+        <span aria-hidden="true">·</span>
+        <a href="/privacy/">Privacy</a>
+        <span aria-hidden="true">·</span>
+        <a href="/contact/">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Your existing calculator JS (unchanged) -->
+  <script>
+  (() => {
+    const exprEl = document.getElementById("expr");
+    const valueEl = document.getElementById("value");
+
+    let expr = "";
+    let current = "0";
+    let lastWasEqual = false;
+    let startNewNumber = false;
+
+    let repeatOp = null;
+    let repeatVal = null;
+
+    const isOp = c => ["+","-","*","/"].includes(c);
+
+    function update() {
+      exprEl.textContent = expr;
+      valueEl.textContent = current;
     }
-    update();
-  }
 
-  function appendDigit(d) {
-    if (lastWasEqual) {
+    function clearAll() {
+      repeatOp = null;
+      repeatVal = null;
       expr = "";
+      current = "0";
       lastWasEqual = false;
-      // keep current as result until user starts typing; then overwrite
-      startNewNumber = true;
-    }
-
-    if (current === "Error") {
-      clearAll();
-    }
-
-    // If we are starting a new number (after operator or after equals), overwrite
-    if (startNewNumber) {
-      current = (d === ".") ? "0." : d;
       startNewNumber = false;
       update();
-      return;
     }
 
-    if (d === "." && current.includes(".")) return;
-    if (current === "0" && d !== ".") current = d;
-    else current += d;
-    update();
-  }
-
-  function appendOperator(op) {
-    repeatOp = null;
-    repeatVal = null;
-
-    // If user just pressed "=", continue from current result
-    if (lastWasEqual) lastWasEqual = false;
-
-    // exprが空の場合は current を先頭へ
-    if (!expr) {
-      expr = current + " " + op + " ";
-      startNewNumber = true;
+    function backspace() {
+      if (lastWasEqual) return clearAll();
+      if (current.length <= 1 || (current.length === 2 && current.startsWith("-"))) current = "0";
+      else current = current.slice(0, -1);
       update();
-      return;
     }
 
-    const trimmed = expr.trimEnd();
-
-    // 末尾が演算子なら置換
-    if (isOp(trimmed.slice(-1))) {
-      expr = trimmed.slice(0, -1) + op + " ";
-      startNewNumber = true;
-      update();
-      return;
-    }
-
-    // 通常：current を確定して演算子
-    expr += current + " " + op + " ";
-    startNewNumber = true;     // ← ここがポイント（表示は変えない）
-    update();
-  }
-
-  function percent() {
-    const x = Number(current);
-    if (!Number.isFinite(x)) return;
-    current = String(x / 100);
-    update();
-  }
-
-  function evaluateExpression(s) {
-    const tokens = s.match(/-?\d+(?:\.\d+)?|[+\-*/]/g);
-    if (!tokens) return NaN;
-
-    const output = [];
-    const ops = [];
-    const prec = {"+":1,"-":1,"*":2,"/":2};
-
-    for (const t of tokens) {
-      if (/^-?\d/.test(t)) output.push(Number(t));
-      else {
-        while (ops.length && prec[ops[ops.length-1]] >= prec[t]) {
-          output.push(ops.pop());
-        }
-        ops.push(t);
+    function appendDigit(d) {
+      if (lastWasEqual) {
+        expr = "";
+        lastWasEqual = false;
+        startNewNumber = true;
       }
-    }
-    while (ops.length) output.push(ops.pop());
+      if (current === "Error") clearAll();
 
-    const stack = [];
-    for (const t of output) {
-      if (typeof t === "number") stack.push(t);
-      else {
-        const b = stack.pop();
-        const a = stack.pop();
-        if (a === undefined || b === undefined) return NaN;
-        if (t === "+") stack.push(a + b);
-        if (t === "-") stack.push(a - b);
-        if (t === "*") stack.push(a * b);
-        if (t === "/") stack.push(a / b);
-      }
-    }
-    return stack.length === 1 ? stack[0] : NaN;
-  }
-  function extractLastBinaryOp(fullExpr) {
-    // fullExpr example: "5 + 2 * 3"
-    const tokens = fullExpr.match(/-?\d+(?:\.\d+)?|[+\-*/]/g);
-    if (!tokens || tokens.length < 3) return null;
-
-    // find last pattern: <number> <op> <number> (at the end)
-    // tokens ends with number, find nearest operator before it
-    const lastNumStr = tokens[tokens.length - 1];
-    const lastNum = Number(lastNumStr);
-    if (!Number.isFinite(lastNum)) return null;
-
-    for (let i = tokens.length - 2; i >= 0; i--) {
-      const t = tokens[i];
-      if (["+","-","*","/"].includes(t)) {
-        return { op: t, val: lastNum };
-      }
-    }
-    return null;
-  }
-
-  function applyOp(a, op, b) {
-    if (!Number.isFinite(a) || !Number.isFinite(b)) return NaN;
-    if (op === "+") return a + b;
-    if (op === "-") return a - b;
-    if (op === "*") return a * b;
-    if (op === "/") return a / b;
-    return NaN;
-  }
-
-  function equals() {
-    // If user presses "=" repeatedly, repeat last operation
-    if (lastWasEqual) {
-      const a = Number(current);
-      if (repeatOp && repeatVal !== null && Number.isFinite(a)) {
-        const r = applyOp(a, repeatOp, repeatVal);
-        expr = `${a} ${repeatOp} ${repeatVal} =`;
-        current = Number.isFinite(r)
-          ? String(Math.round((r + Number.EPSILON) * 1e12) / 1e12)
-          : "Error";
+      if (startNewNumber) {
+        current = (d === ".") ? "0." : d;
+        startNewNumber = false;
         update();
+        return;
       }
-      return;
+
+      if (d === "." && current.includes(".")) return;
+      if (current === "0" && d !== ".") current = d;
+      else current += d;
+      update();
     }
 
-    if (!expr) return;
+    function appendOperator(op) {
+      repeatOp = null;
+      repeatVal = null;
+      if (lastWasEqual) lastWasEqual = false;
 
-    const full = expr.trim() + " " + current;
-    const result = evaluateExpression(full);
+      if (!expr) {
+        expr = current + " " + op + " ";
+        startNewNumber = true;
+        update();
+        return;
+      }
 
-    // store repeat operation (last operator + last number)
-    const last = extractLastBinaryOp(full);
-    repeatOp = last ? last.op : null;
-    repeatVal = last ? last.val : null;
+      const trimmed = expr.trimEnd();
+      if (isOp(trimmed.slice(-1))) {
+        expr = trimmed.slice(0, -1) + op + " ";
+        startNewNumber = true;
+        update();
+        return;
+      }
 
-    expr = full + " =";
-    if (!Number.isFinite(result)) current = "Error";
-    else current = String(Math.round((result + Number.EPSILON) * 1e12) / 1e12);
+      expr += current + " " + op + " ";
+      startNewNumber = true;
+      update();
+    }
 
-    lastWasEqual = true;
-    update();
-  }
+    function percent() {
+      const x = Number(current);
+      if (!Number.isFinite(x)) return;
+      current = String(x / 100);
+      update();
+    }
 
-  function handle(k) {
-    if (k === "C") return clearAll();
-    if (k === "back") return backspace();
-    if (k === "%") return percent();
-    if (k === "=") return equals();
-    if (isOp(k)) return appendOperator(k);
-    if (k === "." || /^\d$/.test(k)) return appendDigit(k);
-  }
-  
-  document.querySelectorAll("button[data-k]").forEach(btn => {
-    btn.addEventListener("pointerdown", (e) => {
-      // prevent ghost clicks on mobile and make it feel instant
-      e.preventDefault();
-      handle(btn.dataset.k);
+    function evaluateExpression(s) {
+      const tokens = s.match(/-?\d+(?:\.\d+)?|[+\-*/]/g);
+      if (!tokens) return NaN;
+
+      const output = [];
+      const ops = [];
+      const prec = {"+":1,"-":1,"*":2,"/":2};
+
+      for (const t of tokens) {
+        if (/^-?\d/.test(t)) output.push(Number(t));
+        else {
+          while (ops.length && prec[ops[ops.length-1]] >= prec[t]) output.push(ops.pop());
+          ops.push(t);
+        }
+      }
+      while (ops.length) output.push(ops.pop());
+
+      const stack = [];
+      for (const t of output) {
+        if (typeof t === "number") stack.push(t);
+        else {
+          const b = stack.pop();
+          const a = stack.pop();
+          if (a === undefined || b === undefined) return NaN;
+          if (t === "+") stack.push(a + b);
+          if (t === "-") stack.push(a - b);
+          if (t === "*") stack.push(a * b);
+          if (t === "/") stack.push(a / b);
+        }
+      }
+      return stack.length === 1 ? stack[0] : NaN;
+    }
+
+    function extractLastBinaryOp(fullExpr) {
+      const tokens = fullExpr.match(/-?\d+(?:\.\d+)?|[+\-*/]/g);
+      if (!tokens || tokens.length < 3) return null;
+
+      const lastNum = Number(tokens[tokens.length - 1]);
+      if (!Number.isFinite(lastNum)) return null;
+
+      for (let i = tokens.length - 2; i >= 0; i--) {
+        const t = tokens[i];
+        if (["+","-","*","/"].includes(t)) return { op: t, val: lastNum };
+      }
+      return null;
+    }
+
+    function applyOp(a, op, b) {
+      if (!Number.isFinite(a) || !Number.isFinite(b)) return NaN;
+      if (op === "+") return a + b;
+      if (op === "-") return a - b;
+      if (op === "*") return a * b;
+      if (op === "/") return a / b;
+      return NaN;
+    }
+
+    function equals() {
+      if (lastWasEqual) {
+        const a = Number(current);
+        if (repeatOp && repeatVal !== null && Number.isFinite(a)) {
+          const r = applyOp(a, repeatOp, repeatVal);
+          expr = `${a} ${repeatOp} ${repeatVal} =`;
+          current = Number.isFinite(r)
+            ? String(Math.round((r + Number.EPSILON) * 1e12) / 1e12)
+            : "Error";
+          update();
+        }
+        return;
+      }
+
+      if (!expr) return;
+
+      const full = expr.trim() + " " + current;
+      const result = evaluateExpression(full);
+
+      const last = extractLastBinaryOp(full);
+      repeatOp = last ? last.op : null;
+      repeatVal = last ? last.val : null;
+
+      expr = full + " =";
+      current = Number.isFinite(result)
+        ? String(Math.round((result + Number.EPSILON) * 1e12) / 1e12)
+        : "Error";
+
+      lastWasEqual = true;
+      update();
+    }
+
+    function handle(k) {
+      if (k === "C") return clearAll();
+      if (k === "back") return backspace();
+      if (k === "%") return percent();
+      if (k === "=") return equals();
+      if (isOp(k)) return appendOperator(k);
+      if (k === "." || /^\d$/.test(k)) return appendDigit(k);
+    }
+
+    document.querySelectorAll("button[data-k]").forEach(btn => {
+      btn.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        handle(btn.dataset.k);
+      });
     });
-  });
 
-  window.addEventListener("keydown", e => {
-    if (e.key === "Enter") return handle("=");
-    if (e.key === "Backspace") return handle("back");
-    if (e.key === "Escape") return handle("C");
-    if (["+","-","*","/","."].includes(e.key)) return handle(e.key);
-    if (/^\d$/.test(e.key)) return handle(e.key);
-  });
+    window.addEventListener("keydown", e => {
+      if (e.key === "Enter") return handle("=");
+      if (e.key === "Backspace") return handle("back");
+      if (e.key === "Escape") return handle("C");
+      if (["+","-","*","/","."].includes(e.key)) return handle(e.key);
+      if (/^\d$/.test(e.key)) return handle(e.key);
+    });
 
-  update();
-})();
-</script>
+    update();
+  })();
+  </script>
 </body>
 </html>
